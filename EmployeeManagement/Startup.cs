@@ -22,24 +22,34 @@ namespace EmployeeManagement
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            app.Use(async (context, next) =>
+            if (env.IsDevelopment())
             {
-                logger.LogInformation("MW1: Incoming Request");
-                await next();
-                logger.LogInformation("MW1: Outgoing Response");
-            });
+                app.UseDeveloperExceptionPage();
+            }
 
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW2: Incoming Request");
-                await next();
-                logger.LogInformation("MW2: Outgoing Response");
-            });
+            // Reconfigures path to the default.html or index.html as root
+            // app.UseDefaultFiles();
+
+            // // To configure others documents as the default document
+            // DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            // defaultFilesOptions.DefaultFileNames.Clear();
+            // defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            // // Add default file middleware
+            // app.UseDefaultFiles(defaultFilesOptions);
+
+            // UseFileServer combines the functionality of UseStaticFiles, UseDefaultFiles and UseDirectoryBrowser middleware.
+            // Use UseFileServer instead of UseDefaultFiles & UseStaticFiles
+            FileServerOptions fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            app.UseFileServer(fileServerOptions);
+
+            // Add static files middleware
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("MW3: Request handled and response produced");
-                logger.LogInformation("MW3: Request handled and response produced");
+                await context.Response.WriteAsync("Hello World");
             });
         }
     }
