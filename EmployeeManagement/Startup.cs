@@ -24,31 +24,26 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions();
+                // how many lines of code to include before and after the line of code that caused the exception
+                developerExceptionPageOptions.SourceCodeLineCount = 10;
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
-
-            // Reconfigures path to the default.html or index.html as root
-            // app.UseDefaultFiles();
-
-            // // To configure others documents as the default document
-            // DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            // defaultFilesOptions.DefaultFileNames.Clear();
-            // defaultFilesOptions.DefaultFileNames.Add("foo.html");
-            // // Add default file middleware
-            // app.UseDefaultFiles(defaultFilesOptions);
-
-            // UseFileServer combines the functionality of UseStaticFiles, UseDefaultFiles and UseDirectoryBrowser middleware.
-            // Use UseFileServer instead of UseDefaultFiles & UseStaticFiles
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            app.UseFileServer(fileServerOptions);
+            // else serve User Friendly Error Page with Application Support Contact Info
+            else if (env.IsStaging() || env.IsProduction() || env.IsEnvironment("UAT"))
+            {
+                app.UseExceptionHandler("/Error");
+            }
+            
+            // Serve default document
+            app.UseFileServer();
 
             // Add static files middleware
             app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
+                throw new Exception("Some error processing request");
                 await context.Response.WriteAsync("Hello World");
             });
         }
