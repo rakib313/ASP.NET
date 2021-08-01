@@ -19,19 +19,12 @@ namespace Controllers
         {
             return _employeeRepository.GetEmployee(1).Name;
         }
-        
-        // Return Json
-        // public JsonResult Details() 
-        // {
-        //     Employee model = _employeeRepository.GetEmployee(1);
-        //     return Json(model);
-        // }
 
-        // Return XML format (must make changes in Dependency injection registry)
-        public ObjectResult Details() 
+        // Return .cshtml file
+        public ViewResult Details() 
         {
             Employee model = _employeeRepository.GetEmployee(1);
-            return new ObjectResult(model);
+            return View(model);
         }
     }
 }
