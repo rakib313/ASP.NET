@@ -6,9 +6,9 @@ namespace Controllers
 {
     public class HomeController : Controller 
     {
-        public string Index() 
+        public JsonResult Index() 
         {
-            return "Hello from mvc";
+            return Json(new {ID = 1, name = "Rakib"});
         }
     }
 }
