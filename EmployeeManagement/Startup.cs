@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,17 @@ namespace EmployeeManagement
         {
             //EnbleEntpointRount is new and not using it now
             services.AddControllers(options => options.EnableEndpointRouting = false);
-            services.AddMvcCore();
+            services.AddMvc();
+            // ASP.NET provides 3 methods to register with dependency injection container(determines the lifetime of that service)
+
+            // Created only 1 time per application and that single instance is used throughout the lifetime
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+
+            // New service is created each time it is requested
+            // services.AddTransient<IEmployeeRepository, MockEmployeeRepository>();
+
+            // A new instance is created once per request.  
+            // services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
