@@ -23,11 +23,12 @@ namespace Controllers
         public ViewResult Details() 
         {
             Employee model = _employeeRepository.GetEmployee(1);
-            // Pass PageTitle and Employee model to the View using ViewData
-            ViewData["PageTitle"] = "Employee Details";
-            ViewData["Employee"] = model;
+            // To store the page title and empoyee model object in the 
+            // ViewBag, dynamic properties PageTitle and Employee are used
+            ViewBag.PageTitle = "Employee Details";
+            ViewBag.Employee = model;
 
-            return View(model);
+            return View();
         }
     }
 }
