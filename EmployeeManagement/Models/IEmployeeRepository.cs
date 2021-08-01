@@ -1,5 +1,4 @@
 using System;
-using EmployeeManagemnet.Models;
 
 namespace EmployeeManagement.Models
 {

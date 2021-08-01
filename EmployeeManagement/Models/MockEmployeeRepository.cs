@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using EmployeeManagemnet.Models;
 using System.Linq;
 
 namespace EmployeeManagement.Models
 {
-    class MockEmployeeRepository : IEmployeeRepository
+    public class MockEmployeeRepository : IEmployeeRepository
     {
         private List<Employee> _employeeList;
         public MockEmployeeRepository()
