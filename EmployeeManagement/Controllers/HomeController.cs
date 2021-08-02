@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using EmployeeManagement.Models;
+using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers
@@ -22,10 +23,13 @@ namespace Controllers
         // Return .cshtml file
         public ViewResult Details() 
         {
-            Employee model = _employeeRepository.GetEmployee(1);
-            ViewBag.PageTitle = "Employee Details";
-            // using strongy typed data to pass data from controller to view
-            return View(model);
+            // Pass data to view using ViewModel
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
+            {
+                PageTitle = "Employee Details",
+                Employee = _employeeRepository.GetEmployee(1)
+            };
+            return View(homeDetailsViewModel);
         }
     }
 }
