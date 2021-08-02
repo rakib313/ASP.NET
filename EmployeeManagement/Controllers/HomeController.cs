@@ -15,9 +15,12 @@ namespace Controllers
             _employeeRepository = employeeRepository;
         }
         // Retrieve employee name and return
-        public string Index() 
+        public ViewResult Index() 
         {
-            return _employeeRepository.GetEmployee(1).Name;
+            // Retrive all employees
+            var model = _employeeRepository.GetAllEmployees();
+            // Pass List of employees to the View
+            return View(model);
         }
 
         // Return .cshtml file
