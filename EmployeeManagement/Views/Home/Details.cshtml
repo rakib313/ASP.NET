@@ -1,19 +1,14 @@
 @model EmployeeManagement.ViewModels.HomeDetailsViewModel
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h3>@Model.PageTitle</h3>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Employee Details";
+}
 
-    <div>Name: @Model.Employee.Name</div>
-    <div>Email: @Model.Employee.Email</div>
-    <div>Department: @Model.Employee.Department</div>
+<h3>@Model.PageTitle</h3>
 
-</body>
-</html>
+<div>Name: @Model.Employee.Name</div>
+<div>Email: @Model.Employee.Email</div>
+<div>Department: @Model.Employee.Department</div>
+
+
