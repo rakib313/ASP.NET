@@ -1,0 +1,14 @@
+@{
+    Layout = "_Layout";
+}
+@* If we have different layout for different users *@
+@* @{
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "AdminLayout";
+    }
+    else
+    {
+        Layout = "_NonAdminLayout";
+    }
+} *@
