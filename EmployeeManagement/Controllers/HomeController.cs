@@ -23,12 +23,9 @@ namespace Controllers
         public ViewResult Details() 
         {
             Employee model = _employeeRepository.GetEmployee(1);
-            // To store the page title and empoyee model object in the 
-            // ViewBag, dynamic properties PageTitle and Employee are used
             ViewBag.PageTitle = "Employee Details";
-            ViewBag.Employee = model;
-
-            return View();
+            // using strongy typed data to pass data from controller to view
+            return View(model);
         }
     }
 }
