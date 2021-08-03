@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+// using Microsoft.AspNetCore.Http
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -20,12 +20,9 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //EnbleEntpointRount is new and not using it now
-            services.AddControllers(options => options.EnableEndpointRouting = false);
-            
-            // Add XML serializer formatter added to be able to return XML format
-            services.AddMvc().AddXmlDataContractSerializerFormatters();
-
+            // The following two services are equivalent to calling AddMvc(), visit https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-2.2&tabs=visual-studio#mvc-service-registration
+            services.AddControllersWithViews();
+            services.AddRazorPages();
             // Created only 1 time per application and that single instance is used throughout the lifetime
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }
@@ -38,15 +35,36 @@ namespace EmployeeManagement
                 app.UseDeveloperExceptionPage();
             }
 
-            // Add static files middleware
-            app.UseStaticFiles();
+            
             
             // Adds MVC support with the default route configured
             //app.UseMvcWithDefaultRoute();
 
+            
             // Configure route: =Hone and =Index configures route when using root url
-            app.UseMvc(routes => {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            // app.UseMvc(routes => {
+            //     routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            // });
+            
+            // Attribute routing
+            //app.UseMvc();
+
+            // The above code is for dotnet 2.2 and older version 
+
+            // Add static files middleware
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            // Authorization should be placed here
+
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{Controller=Home}/{action=Index}/{id?}"
+                );
+                endpoints.MapRazorPages();
             });
 
             // At this point we have no home controller so we see error 404 - Not Found

@@ -24,13 +24,13 @@ namespace EmployeeManagement.Controllers
         }
 
         // Return .cshtml file
-        public ViewResult Details(int id) 
+        public ViewResult Details(int? id) 
         {
             // Pass data to view using ViewModel
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
                 PageTitle = "Employee Details",
-                Employee = _employeeRepository.GetEmployee(1)
+                Employee = _employeeRepository.GetEmployee(id??1)
             };
             return View(homeDetailsViewModel);
         }
