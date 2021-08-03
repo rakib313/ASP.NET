@@ -41,8 +41,13 @@ namespace EmployeeManagement
             // Add static files middleware
             app.UseStaticFiles();
             
-            // looks for index action method in home controller
-            app.UseMvcWithDefaultRoute();
+            // Adds MVC support with the default route configured
+            //app.UseMvcWithDefaultRoute();
+
+            // Configure route: =Hone and =Index configures route when using root url
+            app.UseMvc(routes => {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
 
             // At this point we have no home controller so we see error 404 - Not Found
             // app.Run(async (context) =>

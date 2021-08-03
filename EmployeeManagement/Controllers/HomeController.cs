@@ -4,7 +4,7 @@ using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Controllers
+namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller 
     {
@@ -24,7 +24,7 @@ namespace Controllers
         }
 
         // Return .cshtml file
-        public ViewResult Details() 
+        public ViewResult Details(int id) 
         {
             // Pass data to view using ViewModel
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
