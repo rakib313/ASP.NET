@@ -23,6 +23,7 @@ namespace EmployeeManagement
             // The following two services are equivalent to calling AddMvc(), visit https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-2.2&tabs=visual-studio#mvc-service-registration
             services.AddControllersWithViews();
             services.AddRazorPages();
+            
             // Created only 1 time per application and that single instance is used throughout the lifetime
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }

@@ -15,5 +15,7 @@ namespace EmployeeManagement.Controllers
         {
             return "Details() of DepartmentsController";
         }
+
+        
     }
 }
