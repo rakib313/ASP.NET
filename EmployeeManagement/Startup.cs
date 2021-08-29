@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 // using Microsoft.AspNetCore.Http
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,16 +18,24 @@ namespace EmployeeManagement
     //Step 2 : In the Configure() method, add UseMvcWithDefaultRoute() midddleware to our application's request processing pipeline.
     public class Startup
     {
+        private IConfiguration _config;
+
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
+
             // The following two services are equivalent to calling AddMvc(), visit https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-2.2&tabs=visual-studio#mvc-service-registration
             services.AddControllersWithViews();
             services.AddRazorPages();
             
-            // Created only 1 time per application and that single instance is used throughout the lifetime
-            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+            // Creates one every time
+            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
