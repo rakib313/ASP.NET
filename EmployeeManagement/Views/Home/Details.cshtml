@@ -2,17 +2,18 @@
 
 @{
     ViewBag.Title = "Employee Details";
+    var photoPath = "~/Images/" + (Model.Employee.PhotoPath ?? "undraw.png");
 }
 
  <div class="row justify-content-center m-3">
-    <div class="col-sm-8">
+    @* <div class="col-sm-8">
         <div class="card">
             <div class="card-header">
                 <h1>@Model.Employee.Name</h1>
             </div>
 
             <div class="card-body text-center">
-                <img class="card-img-top" src="~/images/undraw.png" style="max-width: 250px;" />
+                <img class="card-img-top" src="@photoPath" style="max-width: 250px;" asp-append-version="true" />
 
                 <h4>Employee ID : @Model.Employee.ID</h4>
                 <h4>Email : @Model.Employee.Email</h4>
@@ -24,6 +25,19 @@
                 <a href="#" class="btn btn-primary">Edit</a>
                 <a href="#" class="btn btn-danger">Delete</a>
             </div>
+        </div>
+    </div> *@
+
+    <div class="card d-flex .flex-column align-items-center" style="width: 30rem;">
+        <img src="@photoPath" class="card-img-top imageThumbnail" alt="..." asp-append-version="true">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Employee.Name</h5>
+            <h5 class="card-title">@Model.Employee.Email</h5>
+            <h5 class="card-title">@Model.Employee.Department</h5>
+            
+            <a asp-controller="home" asp-action="index" class="btn btn-primary">Back</a>
+            <a href="#" class="btn btn-primary">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
         </div>
     </div>
 </div>
