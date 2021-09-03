@@ -90,9 +90,28 @@ namespace EmployeeManagement.Controllers
                     PhotoPath = uniqueFileName
                 };
                 _employeeRepository.Add(newEmployee);
-                return RedirectToAction("details", new { id = newEmployee.ID });
+                return RedirectToAction("details", new { id = newEmployee.Id });
             }
             return View();
         }
+        [HttpGet]
+        public ViewResult Edit(int id)
+        {
+            Employee employee = _employeeRepository.GetEmployee(id);
+            EmployeeEditViewModel employeeEditViewModel = new () 
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Department = employee.Department,
+                Email = employee.Email,
+                ExistingPhotoPath = employee.PhotoPath
+            };
+            return View(employeeEditViewModel);
+        }
+        // [HttpPost]
+        // public ViewResult Edit(int id)
+        // {
+
+        // }
     }
 }

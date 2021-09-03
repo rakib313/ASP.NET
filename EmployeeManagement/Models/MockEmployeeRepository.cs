@@ -11,22 +11,22 @@ namespace EmployeeManagement.Models
         {
             _employeeList = new List<Employee>()
             {
-                new Employee() { ID = 1, Name = "Mary", Department = Dept.HR, Email = "mary@pragimtech.com" },
-                new Employee() { ID = 2, Name = "John", Department = Dept.IT, Email = "john@pragimtech.com" },
-                new Employee() { ID = 3, Name = "Sam", Department = Dept.IT, Email = "sam@pragimtech.com" },
+                new Employee() { Id = 1, Name = "Mary", Department = Dept.HR, Email = "mary@pragimtech.com" },
+                new Employee() { Id = 2, Name = "John", Department = Dept.IT, Email = "john@pragimtech.com" },
+                new Employee() { Id = 3, Name = "Sam", Department = Dept.IT, Email = "sam@pragimtech.com" },
             };
         }
 
         public Employee Add(Employee employee)
         {
-            employee.ID =  _employeeList.Max(employee=>employee.ID) + 1;
+            employee.Id =  _employeeList.Max(employee=>employee.Id) + 1;
             _employeeList.Add(employee);
             return employee;
         }
 
         public Employee Delete(int id)
         {
-            Employee employee = _employeeList.FirstOrDefault(e => e.ID == id);
+            Employee employee = _employeeList.FirstOrDefault(e => e.Id == id);
             if(employee != null)
             {
                 _employeeList.Remove(employee);
@@ -39,14 +39,14 @@ namespace EmployeeManagement.Models
             return _employeeList;
         }
 
-        public Employee GetEmployee(int ID)
+        public Employee GetEmployee(int id)
         {
-            return _employeeList.FirstOrDefault(employee => employee.ID == ID);
+            return _employeeList.FirstOrDefault(employee => employee.Id == id);
         }
 
         public Employee Update(Employee employeeChanges)
         {
-            Employee employee = _employeeList.FirstOrDefault(e => e.ID == employeeChanges.ID);
+            Employee employee = _employeeList.FirstOrDefault(e => e.Id == employeeChanges.Id);
             if(employee != null)
             {
                 employee.Name = employeeChanges.Name;

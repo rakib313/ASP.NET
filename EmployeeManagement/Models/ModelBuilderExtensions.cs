@@ -12,14 +12,14 @@ namespace EmployeeManagement.Models
             modelBuilder.Entity<Employee>().HasData(
                 new Employee
                 {
-                    ID = 1,
+                    Id = 1,
                     Name = "Mary",
                     Department = Dept.IT,
                     Email = "mary@gmail.com"
                 },
                 new Employee
                 {
-                    ID = 2,
+                    Id = 2,
                     Name = "John",
                     Department = Dept.HR,
                     Email = "john@gmail.com"
